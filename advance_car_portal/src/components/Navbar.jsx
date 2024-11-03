@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useRef, useEffect, useState} from "react";
 
 const Navbar = () => {
+  const divRef = useRef(null);
+  const [height, setHeight] = useState(0);
+  useEffect(()=>{
+    if (divRef.current) {
+      setHeight(divRef.current.offsetHeight);
+    }
+  },[]);
+  console.log(height);
+  
   return (
-    <nav className="bg-gray-100">
-      <div className="flex justify-between items-center p-4">
+    <nav ref={divRef} className="bg-gray-100 fixed top-0 w-full z-10">
+      <div className="flex justify-between items-center px-4 py-3">
         <div className="text-lg font-bold">Logo</div>
 
         <div className="flex justify-center items-center px-2">
@@ -39,10 +48,10 @@ const Navbar = () => {
       </div>
       <div className="flex justify-center py-2">
         <ul className="flex space-x-8 text-gray-600">
-          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-2 px-3 rounded-xl">Home</li>
-          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-2 px-3 rounded-xl">About</li>
-          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-2 px-3 rounded-xl">Cars</li>
-          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-2 px-3 rounded-xl">Contact</li>
+          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-1 px-3 rounded-xl">Home</li>
+          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-1 px-3 rounded-xl">About</li>
+          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-1 px-3 rounded-xl">Cars</li>
+          <li className="hover:text-gray-800 cursor-pointer font-semibold text-lg bg-gray-200 py-1 px-3 rounded-xl">Contact</li>
         </ul>
       </div>
     </nav>
