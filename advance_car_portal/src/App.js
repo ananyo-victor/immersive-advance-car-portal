@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import Navbar from "./components/Navbar";
 import Slider from "./components/Slider";
 import CarSection from "./components/CarSection";
@@ -11,8 +11,12 @@ import Features from "./components/Features";
 import Reviews from "./components/Reviews";
 import Filter from "./components/Filter";
 import Brands from "./components/Brands";
+import  userContext  from "./UserContext";
+
 
 function App() {
+  const {navHeight} = useContext(userContext);
+const height = navHeight +2; 
   return (<>
     <div className="App relative">
       <Navbar />
@@ -23,9 +27,9 @@ function App() {
         <CarSection title="Featured Car" />
       </div> */}
 
-      <div className="flex m-4 justify-evenly relative">
+      <div className="flex mx-4 justify-evenly relative">
         <Sidebar />
-        <div className="w-10/12 px-4 space-y-6">
+        <div className={`w-10/12 px-4 space-y-6 mt-[${height}px]`}>
           <ProductDetails />
           <Variants />
           <Specifications />
