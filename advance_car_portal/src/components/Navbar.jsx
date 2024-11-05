@@ -1,6 +1,8 @@
-import React, {useRef, useEffect, useState} from "react";
+import React, {useRef, useEffect, useState, useContext} from "react";
+import  userContext  from "../UserContext";
 
 const Navbar = () => {
+  const {setNavHeight} = useContext(userContext);
   const divRef = useRef(null);
   const [height, setHeight] = useState(0);
   useEffect(()=>{
@@ -8,6 +10,7 @@ const Navbar = () => {
       setHeight(divRef.current.offsetHeight);
     }
   },[]);
+  setNavHeight(height);
   console.log(height);
   
   return (
