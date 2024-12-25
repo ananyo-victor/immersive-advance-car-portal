@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Card = () => {
   return (
@@ -10,7 +11,9 @@ const Card = () => {
           <p className="text-sm text-gray-600">Description of the car goes here.</p>
         </div>
         <div className="bg-gray-300 size-fit py-2 px-3 rounded-lg">
-          <button className="ml-auto">Check Details</button>
+          <Link to="/car-details">
+            <button className="ml-auto">Check Details</button>
+          </Link>
         </div>
       </div>
     </div>

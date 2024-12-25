@@ -1,49 +1,46 @@
-import React, {useContext} from "react";
+import React,{useContext} from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import userContext from "./UserContext";
 import Navbar from "./components/Navbar";
-import Slider from "./components/Slider";
-import CarSection from "./components/CarSection";
 import FooterComponent from "./components/FooterComponent";
-import Sidebar from "./components/Sidebar";
-import ProductDetails from "./components/ProductDetails";
-import Variants from "./components/Variants";
-import Specifications from "./components/Specifications";
-import Features from "./components/Features";
-import Reviews from "./components/Reviews";
-import Filter from "./components/Filter";
-import Brands from "./components/Brands";
-import  userContext  from "./UserContext";
-
+import Landing from "./components/Landing/Landing";
+import CarDetails from "./components/car_details/CarDetails";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Booking from "./components/Booking";
+import UserProfile from "./components/UserProfile";
+import AdminDashboard from "./components/AdminDashboard";
+import BookingHistory from "./components/BookingHistory";
+import FAQ from "./components/FAQ";
+import Contact from "./components/Contact";
+import BookingForm from "./components/BookingForm";
 
 function App() {
-  const {navHeight} = useContext(userContext);
-const height = navHeight +2; 
-  return (<>
-    <div className="App relative">
-      <Navbar />
-      {/* <Slider />
-      <div className="flex flex-col items-center max-h-fit w-full">
-        <CarSection title="Featured Car" />
-        <CarSection title="Popular Car" />
-        <CarSection title="Featured Car" />
-      </div> */}
-
-      <div className="flex mx-4 justify-evenly relative">
-        <Sidebar />
-        <div className={`w-10/12 px-4 space-y-6 mt-[${height}px]`}>
-          <ProductDetails />
-          <Variants />
-          <Specifications />
-          <Features />
-          <Reviews />
-          <Filter />
-          <Brands />
+      const { navHeight } = useContext(userContext);
+      const height = navHeight + 2;
+  
+  return (
+    <Router>
+      <div className="relative">
+        <Navbar />
+        <div style={{ marginTop: `${height}px` }}>
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/car-details" element={<CarDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/booking" element={<Booking />} />
+            <Route path="/user-profile" element={<UserProfile />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/booking-history" element={<BookingHistory />} />
+            <Route path="/booking-form" element={<BookingForm />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
         </div>
+        <FooterComponent />
       </div>
-      <FooterComponent />
-    </div>
-
-
-  </>
+    </Router>
   );
 }
 
