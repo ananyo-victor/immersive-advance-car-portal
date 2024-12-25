@@ -1,5 +1,7 @@
 import React from "react";
 import { Rating } from "flowbite-react";
+import { Accordion } from "flowbite-react";
+
 
 const Reviews = () => {
   const essentialCarFeatureRatings = {
@@ -78,48 +80,56 @@ const Reviews = () => {
           })
         }
       </div>
-      <div className="w-full bg-slate-700 "></div>
-      <div className="mt-4">
-        <div className="my-2">
-          <hr className="w-full h-0.5 bg-black" />
-          <h1 className="my-4 mx-3 text-xl font-semibold">All Reviews</h1>
-          <hr className="w-full h-0.5" />
-          <hr className="w-full h-0.5 bg-black" />
-          {/* <hr className="w-full h-0.5 bg-black" /> */}
-          {/* <hr className="w-full h-0.5 bg-black" /> */}
-        </div>
-        <div className="space-y-5">
-          {
-            reviews.map((review, index) => {
-              return (
-                <div key={index} className="space-y-1">
-                  <div className="ml-4 ">
-                    <h1 className="text-xl">{review.title}</h1>
-                  </div>
-                  <div className="ml-4 text-yellow-500 text-lg">
-                    {"★".repeat(Math.floor(review.rating)) +
-                      (review.rating % 1 === 0.5 ? "☆" : "")}
-                  </div>
-                  <div className="ml-4 flex space-x-3 text-sm">
-                    <div>
-                      <h2>{review.date}</h2>
-                    </div>
-                    <div>
-                      <h2>{review.author}</h2>
-                    </div>
-                  </div>
-                  <div className="ml-4 text-xl">
-                    <h2>{review.content}</h2>
-                  </div>
-                  <hr className="w-full" />
-                  <hr className="w-full h-0.5 bg-black" />
+      <Accordion>
 
-                </div>
-              )
-            })
-          }
-        </div>
-      </div>
+        <Accordion.Panel>
+
+          <div className="mt-4">
+            <div className="my-2">
+              <hr className="w-full h-0.5 bg-black" />
+              <Accordion.Title className="my-4 mx-3 text-xl font-semibold">All Reviews</Accordion.Title>
+              {/* <Accordion.Title>All Reviews</Accordion.Title> */}
+              <hr className="w-full h-0.5" />
+              <hr className="w-full h-0.5 bg-black" />
+              {/* <hr className="w-full h-0.5 bg-black" /> */}
+              {/* <hr className="w-full h-0.5 bg-black" /> */}
+            </div>
+            <div className="space-y-5">
+              {
+                reviews.map((review, index) => {
+                  return (
+                    <div key={index} className="space-y-1">
+                      <Accordion.Content>
+                        <div className="ml-4 ">
+                          <h1 className="text-xl">{review.title}</h1>
+                        </div>
+                        <div className="ml-4 text-yellow-500 text-lg">
+                          {"★".repeat(Math.floor(review.rating)) +
+                            (review.rating % 1 === 0.5 ? "☆" : "")}
+                        </div>
+                        <div className="ml-4 flex space-x-3 text-sm">
+                          <div>
+                            <h2>{review.date}</h2>
+                          </div>
+                          <div>
+                            <h2>{review.author}</h2>
+                          </div>
+                        </div>
+                        <div className="ml-4 text-xl">
+                          <h2>{review.content}</h2>
+                        </div>
+                        <hr className="w-full" />
+                        <hr className="w-full h-0.5 bg-black" />
+                      </Accordion.Content>
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </div>
+        </Accordion.Panel>
+      </Accordion>
+
     </div>
   );
 };

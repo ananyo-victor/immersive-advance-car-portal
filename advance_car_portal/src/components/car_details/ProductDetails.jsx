@@ -1,7 +1,7 @@
 import React from "react";
 import RatingComp from "./extra/RatingComp";
 
-const ProductDetails = () => {
+const ProductDetails = ({ onTogglePromotions }) => {
   return (
     <div className="flex bg-gray-100 p-4 rounded-lg shadow-md space-x-5">
       <div className="mt-5 w-1/3 bg-gray-300 aspect-square h-64 rounded-lg"></div>
@@ -24,7 +24,12 @@ const ProductDetails = () => {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque fuga impedit voluptatem eligendi doloribus qui doloremque id beatae dolor architecto temporibus, omnis illum distinctio consequatur vitae fugit fugiat officiis quisquam.
         </div>
         <div>
-          <button className="px-4 py-2 bg-gray-400 rounded-lg">Offer</button>
+          <button
+            onClick={onTogglePromotions}
+            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200"
+          >
+            Show Offers
+          </button>
         </div>
       </div>
       {/* <button className="py-2 px-4 bg-blue-500 text-white rounded">Add to Cart</button> */}

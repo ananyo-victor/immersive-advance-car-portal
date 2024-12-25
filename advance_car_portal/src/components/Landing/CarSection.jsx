@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Card from "./Card";
+import Card from "../car_details/Card";
 
 const CarSection = ({ title }) => {
   const cardContainerRef = useRef(null);
@@ -27,7 +27,7 @@ const CarSection = ({ title }) => {
         </div>
         <div
           ref={cardContainerRef}
-          className="flex gap-4 scrollbar-hide overflow-auto w-full px-4 max-h-screen h-[90%]"
+          className="flex gap-4 scrollbar-hide overflow-auto w-full max-h-screen h-[90%]"
         >
           <Card />
           <Card />
