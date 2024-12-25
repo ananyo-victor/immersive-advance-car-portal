@@ -1,17 +1,15 @@
-import React, {useRef, useEffect, useState, useContext} from "react";
+import React, {useRef, useEffect, useContext} from "react";
 import  userContext  from "../UserContext";
 
 const Navbar = () => {
   const {setNavHeight} = useContext(userContext);
   const divRef = useRef(null);
-  const [height, setHeight] = useState(0);
   useEffect(()=>{
     if (divRef.current) {
-      setHeight(divRef.current.offsetHeight);
+      setNavHeight(divRef.current.offsetHeight);
     }
-  },[]);
-  setNavHeight(height);
-  console.log(height);
+  },[divRef, setNavHeight]);
+  // console.log(height);
   
   return (
     <nav ref={divRef} className="bg-gray-100 fixed top-0 w-full z-10">
