@@ -3,9 +3,9 @@ import RatingComp from "./extra/RatingComp";
 
 const ProductDetails = ({ onTogglePromotions }) => {
   return (
-    <div className="flex bg-gray-100 p-4 rounded-lg shadow-md space-x-5">
-      <div className="mt-5 w-1/3 bg-gray-300 aspect-square h-64 rounded-lg"></div>
-      <div className="mt-5 px-5 flex flex-col justify-evenly w-2/3">
+    <div className="flex flex-col lg:flex-row bg-gray-100 p-4 rounded-lg shadow-md space-x-0 lg:space-x-5">
+      <div className="mt-5 w-full lg:w-1/3 bg-blue-200 aspect-square h-64 rounded-lg"></div>
+      <div className="mt-5 px-5 flex flex-col justify-evenly w-full lg:w-2/3">
         <div className="flex justify-between">
           <div className="space-y-2">
             <h2 className="text-xl font-bold">Product Name</h2>
@@ -32,7 +32,6 @@ const ProductDetails = ({ onTogglePromotions }) => {
           </button>
         </div>
       </div>
-      {/* <button className="py-2 px-4 bg-blue-500 text-white rounded">Add to Cart</button> */}
     </div>
   );
 };

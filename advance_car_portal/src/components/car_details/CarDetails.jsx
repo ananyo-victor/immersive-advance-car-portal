@@ -10,7 +10,6 @@ import Brands from "./Brands";
 import Promotions from "../Promotions"; // Import the Promotions component
 
 function CarDetails() {
-  const carId = 1; // Replace with the actual car ID
   const [showPromotions, setShowPromotions] = useState(false); // State to toggle promotions window
 
   const handleTogglePromotions = () => {
@@ -22,9 +21,9 @@ function CarDetails() {
   };
 
   return (
-    <div className="flex mx-4 justify-evenly relative">
+    <div className="flex lg:flex-row md:px-4 justify-evenly relative bg-gradient-to-r from-blue-400 to-purple-500">
       <Sidebar />
-      <div className={`w-10/12 px-4 space-y-6`}>
+      <div className="w-full lg:w-9/12 px-4 space-y-6">
         <ProductDetails onTogglePromotions={handleTogglePromotions} />
         <Variants />
         <Specifications />
@@ -33,7 +32,7 @@ function CarDetails() {
         <Filter />
         <Brands />
       </div>
-        {showPromotions && <Promotions onClose={handleClosePromotions} />}
+      {showPromotions && <Promotions onClose={handleClosePromotions} />}
     </div>
   );
 }

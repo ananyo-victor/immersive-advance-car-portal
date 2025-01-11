@@ -1,135 +1,128 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Rating } from "flowbite-react";
 import { Accordion } from "flowbite-react";
 
+const Reviews = ({ carId }) => {
+  const [reviews, setReviews] = useState([]);
+  const [newReview, setNewReview] = useState({ title: "", rating: 0, content: "" });
 
-const Reviews = () => {
-  const essentialCarFeatureRatings = {
-    "Performance": 4.6,
-    "Comfort": 4.3,
-    "Fuel Efficiency": 4.1,
-    "Safety": 4.8,
-    "Technology": 4.5,
-    "Reliability": 4.7,
-    "Interior Quality": 4.4,
-    "Resale Value": 4.2
+  useEffect(() => {
+    // Fetch reviews from the server
+    const fetchReviews = async () => {
+      try {
+        const response = await fetch(`/api/reviews?carId=${carId}`);
+        const data = await response.json();
+        setReviews(data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviews();
+  }, [carId]);
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('/api/reviews', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...newReview, carId }),
+      });
+      const data = await response.json();
+      setReviews([...reviews, data]);
+      setNewReview({ title: "", rating: 0, content: "" });
+    } catch (error) {
+      console.error('Error submitting review:', error);
+    }
   };
-  const reviews = [
-    {
-      title: "A True Game Changer in the SUV World",
-      rating: 5,
-      date: "2 days ago",
-      author: "Jane Smith",
-      content:
-        "The Tata Harrier has exceeded all expectations with its robust design and powerful performance. It's perfect for adventure seekers!",
-    },
-    {
-      title: "Luxury Redefined",
-      rating: 4.5,
-      date: "3 days ago",
-      author: "Michael Brown",
-      content:
-        "Tata's Nexon EV takes comfort and innovation to the next level. Smooth rides and eco-friendly—what more could you ask for?",
-    },
-    {
-      title: "Stylish and Efficient",
-      rating: 4,
-      date: "4 days ago",
-      author: "Emily Davis",
-      content:
-        "The Tata Altroz delivers great fuel efficiency without compromising on style. A perfect city car with premium features.",
-    },
-    {
-      title: "The Ultimate Family Car",
-      rating: 5,
-      date: "5 days ago",
-      author: "Chris Johnson",
-      content:
-        "The Tata Safari is a spacious, reliable, and comfortable ride for families. It handles long trips with ease.",
-    },
-    {
-      title: "Sporty Yet Practical",
-      rating: 4.5,
-      date: "6 days ago",
-      author: "Amit Verma",
-      content:
-        "Tata Punch is a perfect balance of sportiness and practicality. Great for urban drives and weekend getaways.",
-    },
+
+  // Sample reviews for demonstration
+  const sampleReviews = [
+    { id: 1, title: "Great Car!", rating: 5, content: "This car is amazing. It drives smoothly and is very comfortable." },
+    { id: 2, title: "Good Value", rating: 4, content: "The car offers good value for the price. Highly recommended." },
+    { id: 3, title: "Average Experience", rating: 3, content: "The car is okay, but I expected more features for the price." },
+    { id: 4, title: "Not Satisfied", rating: 2, content: "The car has some issues with the engine. Not very satisfied." },
+    { id: 5, title: "Terrible", rating: 1, content: "The car broke down after a week. Very disappointed." },
   ];
 
-  const carFeatureRatings = Object.entries(essentialCarFeatureRatings);
-
   return (
-    <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-      {/* <h3 className="font-semibold">Reviews</h3> */}
-      <div className="flex items-center space-x-4">
-        <Rating size="lg">
-          <Rating.Star />
-        </Rating>
-        <span className="text-xl font-bold">4.7/5</span>
-        <span className="text-gray-600">(123 ratings)</span>
-      </div>
-      <div className="flex space-x-3 justify-evenly">
-        {
-          carFeatureRatings.map(([key, value, index]) => {
-            return (
-              <div key={index} className="flex flex-col space-y-3 my-2 items-center justify-center">
-                <div className="rounded-full aspect-square bg-slate-400 p-4 font-semibold h-fit w-fit flex justify-center items-center">{value}</div>
-                <div className="font-semibold">{key}</div>
-              </div>)
-          })
-        }
-      </div>
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md w-full">
+      <h3 className="text-xl font-semibold mb-4">Customer Reviews</h3>
       <Accordion>
-
         <Accordion.Panel>
-
-          <div className="mt-4">
-            <div className="my-2">
-              <hr className="w-full h-0.5 bg-black" />
-              <Accordion.Title className="my-4 mx-3 text-xl font-semibold">All Reviews</Accordion.Title>
-              {/* <Accordion.Title>All Reviews</Accordion.Title> */}
-              <hr className="w-full h-0.5" />
-              <hr className="w-full h-0.5 bg-black" />
-              {/* <hr className="w-full h-0.5 bg-black" /> */}
-              {/* <hr className="w-full h-0.5 bg-black" /> */}
+          <Accordion.Title>
+            <div className="flex justify-between items-center">
+              <h4 className="text-lg font-semibold">All Reviews</h4>
             </div>
-            <div className="space-y-5">
-              {
-                reviews.map((review, index) => {
-                  return (
-                    <div key={index} className="space-y-1">
-                      <Accordion.Content>
-                        <div className="ml-4 ">
-                          <h1 className="text-xl">{review.title}</h1>
-                        </div>
-                        <div className="ml-4 text-yellow-500 text-lg">
-                          {"★".repeat(Math.floor(review.rating)) +
-                            (review.rating % 1 === 0.5 ? "☆" : "")}
-                        </div>
-                        <div className="ml-4 flex space-x-3 text-sm">
-                          <div>
-                            <h2>{review.date}</h2>
-                          </div>
-                          <div>
-                            <h2>{review.author}</h2>
-                          </div>
-                        </div>
-                        <div className="ml-4 text-xl">
-                          <h2>{review.content}</h2>
-                        </div>
-                        <hr className="w-full" />
-                        <hr className="w-full h-0.5 bg-black" />
-                      </Accordion.Content>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+          </Accordion.Title>
+          <Accordion.Content>
+            {sampleReviews.map((review) => (
+              <div key={review.id} className="mb-4">
+                <div className="flex justify-between items-center">
+                  <h4 className="text-lg font-semibold">{review.title}</h4>
+                  <Rating>
+                    {[...Array(5)].map((_, index) => (
+                      <Rating.Star key={index} filled={index < review.rating} />
+                    ))}
+                  </Rating>
+                </div>
+                <p className="text-gray-600 mt-2">{review.content}</p>
+              </div>
+            ))}
+          </Accordion.Content>
         </Accordion.Panel>
+      <Accordion.Panel>
+        <Accordion.Title><h4 className="text-lg font-semibold mb-4">Write a Review</h4></Accordion.Title>
+      <Accordion.Content>
+      <form onSubmit={handleReviewSubmit} className="mt-6 bg-white p-4 rounded-lg shadow-inner">
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            value={newReview.title}
+            onChange={(e) => setNewReview({ ...newReview, title: e.target.value })}
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="rating">Rating</label>
+          <Rating>
+            {[...Array(5)].map((_, index) => (
+              <Rating.Star
+                key={index}
+                filled={index < newReview.rating}
+                onClick={() => setNewReview({ ...newReview, rating: index + 1 })}
+                className="cursor-pointer"
+              />
+            ))}
+          </Rating>
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 mb-2" htmlFor="content">Review</label>
+          <textarea
+            id="content"
+            value={newReview.content}
+            onChange={(e) => setNewReview({ ...newReview, content: e.target.value })}
+            className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="4"
+            required
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+        >
+          Submit Review
+        </button>
+      </form>
+      </Accordion.Content>
+      </Accordion.Panel>
       </Accordion>
-
     </div>
   );
 };

@@ -700,74 +700,144 @@ const delears = [
   }
 ]
 
+const sampleCars = [
+  { id: 1, name: "Toyota Corolla", brand: "Toyota", price: 5000, state: "California", district: "Los Angeles" },
+  { id: 2, name: "Honda Civic", brand: "Honda", price: 7000, state: "California", district: "San Francisco" },
+  { id: 3, name: "Ford Mustang", brand: "Ford", price: 15000, state: "New York", district: "New York" },
+  // Add more sample car objects as needed
+];
 
 const Filter = () => {
   const [selectedState, setSelectedState] = useState("");
+  const [selectedDistrict, setSelectedDistrict] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [districts, setDistricts] = useState([]);
+  const [filteredCars, setFilteredCars] = useState([]);
 
   const handleStateChange = (event) => {
     const state = event.target.value;
     setSelectedState(state);
     setDistricts(indianStatesAndDistricts[state] || []);
   };
-  return (<>
-    <div className="bg-gray-100 p-4 rounded-lg shadow-md">
-      <h3 className="font-semibold mb-4">Filter Options</h3>
-      <div className="flex space-x-2">
-        <select className="p-2 bg-gray-300 rounded">
-          <option>Company</option>
-          {carCompanies.map((company, index) => (
-            <option key={index}>{company}</option>
-          ))}
-        </select>
 
+  const handleFilter = () => {
+    const [minPrice, maxPrice] = selectedPriceRange.split('-').map(Number);
+    const results = sampleCars.filter(car => {
+      return (
+        (!selectedState || car.state === selectedState) &&
+        (!selectedDistrict || car.district === selectedDistrict) &&
+        (!selectedBrand || car.brand === selectedBrand) &&
+        (!selectedPriceRange || (car.price >= minPrice && car.price <= (maxPrice || Infinity)))
+      );
+    });
+    setFilteredCars(results);
+  };
 
-        <select
-          className="p-2 bg-gray-300 rounded"
-          onChange={handleStateChange}
-          value={selectedState}
+  return (
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md w-full">
+      <h3 className="text-xl font-semibold mb-4">Filter Options</h3>
+      <div className="flex flex-col space-y-4">
+        <div className="flex flex-col md:flex-row md:space-x-4">
+          <div className="w-full md:w-1/2">
+            <label className="block text-gray-700 mb-2" htmlFor="state">State</label>
+            <select
+              id="state"
+              value={selectedState}
+              onChange={handleStateChange}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select State</option>
+              {Object.keys(indianStatesAndDistricts).map((state) => (
+                <option key={state} value={state}>{state}</option>
+              ))}
+            </select>
+          </div>
+          <div className="w-full md:w-1/2">
+            <label className="block text-gray-700 mb-2" htmlFor="district">District</label>
+            <select
+              id="district"
+              value={selectedDistrict}
+              onChange={(e) => setSelectedDistrict(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select District</option>
+              {districts.map((district) => (
+                <option key={district} value={district}>{district}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row md:space-x-4">
+          <div className="w-full md:w-1/2">
+            <label className="block text-gray-700 mb-2" htmlFor="priceRange">Price Range</label>
+            <select
+              id="priceRange"
+              value={selectedPriceRange}
+              onChange={(e) => setSelectedPriceRange(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Price Range</option>
+              <option value="0-5000">$0 - $5000</option>
+              <option value="5000-10000">$5000 - $10000</option>
+              <option value="10000-20000">$10000 - $20000</option>
+              <option value="20000-30000">$20000 - $30000</option>
+              <option value="30000-40000">$30000 - $40000</option>
+              <option value="40000+">$40000+</option>
+            </select>
+          </div>
+          <div className="w-full md:w-1/2">
+            <label className="block text-gray-700 mb-2" htmlFor="brand">Brand</label>
+            <select
+              id="brand"
+              value={selectedBrand}
+              onChange={(e) => setSelectedBrand(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Brand</option>
+              <option value="Toyota">Toyota</option>
+              <option value="Honda">Honda</option>
+              <option value="Ford">Ford</option>
+              <option value="Chevrolet">Chevrolet</option>
+              <option value="BMW">BMW</option>
+              <option value="Audi">Audi</option>
+              <option value="Mercedes-Benz">Mercedes-Benz</option>
+              <option value="Tesla">Tesla</option>
+              <option value="Nissan">Nissan</option>
+              <option value="Hyundai">Hyundai</option>
+              <option value="Kia">Kia</option>
+              <option value="Volkswagen">Volkswagen</option>
+            </select>
+          </div>
+        </div>
+        <button
+          onClick={handleFilter}
+          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
         >
-          <option>Select State</option>
-          {Object.keys(indianStatesAndDistricts).map((state, index) => (
-            <option key={index} value={state}>
-              {state}
-            </option>
-          ))}
-        </select>
-
-        <select className="p-2 bg-gray-300 rounded">
-          <option>Select District</option>
-          {districts.map((district, index) => (
-            <option key={index}>{district}</option>
-          ))}
-        </select>
-        <button className="p-2 bg-blue-500 text-white rounded">Search</button>
+          Apply Filters
+        </button>
+      </div>
+      <div className="mt-6">
+        <h3 className="text-xl font-semibold mb-4">Filtered Results</h3>
+        {filteredCars.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredCars.map((car) => (
+              <div key={car.id} className="bg-white p-4 rounded-lg shadow-md">
+                <h4 className="text-lg font-semibold">{car.name}</h4>
+                <p className="text-gray-600">Brand: {car.brand}</p>
+                <p className="text-gray-600">Price: ${car.price}</p>
+                <p className="text-gray-600">State: {car.state}</p>
+                <p className="text-gray-600">District: {car.district}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-600">No cars found matching the selected filters.</p>
+        )}
       </div>
     </div>
-    <div className="grid grid-cols-3 gap-3 bg-gray-100 rounded-lg shadow-md p-4">
-      {
-        delears.map((delear, index) => {
-          return (
-            <div key={index} className="bg-white p-2 rounded-lg shadow-lg space-y-3">
-              <div className="">
-                <div className="text-lg">{delear.name}</div>
-                <div className="text-sm">{delear.address}</div>
-              </div>
-              <div className="flex justify-evenly w-full">
-                <div className="w-5/12 bg-gray-400 rounded-lg flex justify-center p-2">
-                <button>Details</button>
-                </div>
-                <div className="w-5/12 bg-gray-400 rounded-lg flex justify-center p-2">
-                <button>Call</button>
-                </div>
-              </div>
-            </div>
-          )
-        })
-      }
-    </div>
-  </>
   );
 };
 
 export default Filter;
+  

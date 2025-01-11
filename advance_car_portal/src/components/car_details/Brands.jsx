@@ -1,58 +1,57 @@
 import React, { useState } from "react";
 
 const carCompanies = [
-  "Tata Motors",
-  "Maruti Suzuki",
-  "Hyundai",
-  "Mahindra",
-  "Honda",
-  "Ford",
-  "Volkswagen",
-  "Renault",
-  "Kia",
-  "BMW",
-  "Audi",
-  "Mercedes-Benz",
-  "Chevrolet",
-  "Nissan",
-  "Toyota",
-  "Mitsubishi",
-  "Jeep",
-  "Land Rover",
-  "Jaguar",
-  "Volvo",
-  "Skoda",
-  "Porsche",
-  "Ferrari",
-  "Lamborghini",
-  "Maserati",
+  { name: "Tata Motors", logo: "path/to/tata-motors-logo.png" },
+  { name: "Maruti Suzuki", logo: "path/to/maruti-suzuki-logo.png" },
+  { name: "Hyundai", logo: "path/to/hyundai-logo.png" },
+  { name: "Mahindra", logo: "path/to/mahindra-logo.png" },
+  { name: "Honda", logo: "path/to/honda-logo.png" },
+  { name: "Ford", logo: "path/to/ford-logo.png" },
+  { name: "Volkswagen", logo: "path/to/volkswagen-logo.png" },
+  { name: "Renault", logo: "path/to/renault-logo.png" },
+  { name: "Kia", logo: "path/to/kia-logo.png" },
+  { name: "BMW", logo: "path/to/bmw-logo.png" },
+  { name: "Audi", logo: "path/to/audi-logo.png" },
+  { name: "Mercedes-Benz", logo: "path/to/mercedes-benz-logo.png" },
+  { name: "Chevrolet", logo: "path/to/chevrolet-logo.png" },
+  { name: "Nissan", logo: "path/to/nissan-logo.png" },
+  { name: "Toyota", logo: "path/to/toyota-logo.png" },
+  { name: "Mitsubishi", logo: "path/to/mitsubishi-logo.png" },
+  { name: "Jeep", logo: "path/to/jeep-logo.png" },
+  { name: "Land Rover", logo: "path/to/land-rover-logo.png" },
+  { name: "Jaguar", logo: "path/to/jaguar-logo.png" },
+  { name: "Volvo", logo: "path/to/volvo-logo.png" },
+  { name: "Skoda", logo: "path/to/skoda-logo.png" },
+  { name: "Porsche", logo: "path/to/porsche-logo.png" },
+  { name: "Ferrari", logo: "path/to/ferrari-logo.png" },
+  { name: "Lamborghini", logo: "path/to/lamborghini-logo.png" },
+  { name: "Maserati", logo: "path/to/maserati-logo.png" },
 ];
 
 const Brands = () => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const expand = () => {
+  const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <div id="box" className={`bg-gray-500 p-4 rounded-lg shadow-md w-full ${isExpanded ? 'h-auto' : 'h-[12rem]'} overflow-hidden relative`}>
-      <h3 className="font-semibold mb-4">Other Brands to Explore</h3>
-      <div className="grid grid-cols-5 gap-3 m-5">
-        {carCompanies.map((company, index) => (
-          <div key={index} className="bg-gray-300 h-24 w-24 rounded">{company}</div>
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md w-full">
+      <h3 className="text-xl font-semibold mb-4">Car Brands</h3>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+        {carCompanies.slice(0, isExpanded ? carCompanies.length : 10).map((company, index) => (
+          <div key={index} className="bg-white p-2 rounded-lg shadow-inner text-center">
+            <img src={company.logo} alt={`${company.name} logo`} className="w-full h-16 object-contain mb-2" />
+            <div className="text-gray-700 font-medium">{company.name}</div>
+          </div>
         ))}
       </div>
-      <div className="flex justify-center absolute w-full z-10 bg-gray-600 bottom-0 left-0">
-        <button className="" onClick={expand}>
-          {isExpanded ? <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-          </svg> : <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-          </svg>}
-
-        </button>
-      </div>
+      <button
+        onClick={toggleExpand}
+        className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+      >
+        {isExpanded ? "Show Less" : "Show More"}
+      </button>
     </div>
   );
 };
