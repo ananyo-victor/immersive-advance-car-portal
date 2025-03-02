@@ -3,7 +3,7 @@ import { BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
 
 function FooterComponent() {
   return (
-    <Footer container className="bg-gray-800 text-white py-4">
+    <Footer container className="bg-gray-800 text-white py-4 sticky">
       <div className="w-full">
         <div className="grid w-full justify-between sm:flex sm:justify-between md:flex md:grid-cols-1">
           <div>

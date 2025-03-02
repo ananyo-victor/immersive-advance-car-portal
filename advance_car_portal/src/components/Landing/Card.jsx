@@ -1,10 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Rating } from "flowbite-react";
 
-const Card = ({ car, onClick }) => {
+const Card = ({ car }) => {
+  const navigate = useNavigate();
+
+  const handleDetailsClick = () => {
+    navigate("/car-details", { state: { brand: car.brand } });
+  };
+
   return (
-    <div onClick={onClick} className="bg-white p-4 rounded-lg shadow-md h-full min-w-[80%] sm:min-w-[40%] md:min-w-[30%] lg:min-w-[20%] cursor-pointer">
+    <div onClick={handleDetailsClick} className="bg-white p-4 rounded-lg shadow-md h-full min-w-[80%] sm:min-w-[40%] md:min-w-[30%] lg:min-w-[20%] cursor-pointer">
       <div className="bg-blue-200 aspect-square h-[50%] w-full mb-4 rounded-md flex items-center justify-center">
         <span className="text-blue-500">Image</span>
       </div>
@@ -22,11 +28,9 @@ const Card = ({ car, onClick }) => {
         </div>
         <div className="mt-4">
           <p className="text-lg font-bold text-blue-700">${car.price}</p>
-          <Link to="/car-details">
-            <button className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200">
-              Check Details
-            </button>
-          </Link>
+          <button onClick={handleDetailsClick} className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200">
+            Check Details
+          </button>
         </div>
       </div>
     </div>

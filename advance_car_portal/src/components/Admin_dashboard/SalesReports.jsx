@@ -1,33 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Table } from 'flowbite-react';
 
-const SalesReports = () => {
-  const [salesReports, setSalesReports] = useState([
-    {
-      date: '',
-      bookings: '',
-      revenue: ''
-    }
-  ]);
-
-//   useEffect(() => {
-//     // Fetch sales reports from the server
-//     const fetchSalesReports = async () => {
-//       try {
-//         const response = await fetch('/api/sales-reports');
-//         const data = await response.json();
-//         setSalesReports(data);
-//       } catch (error) {
-//         console.error('Error fetching sales reports:', error);
-//       }
-//     };
-
-//     fetchSalesReports();
-//   }, []);
-
+const SalesReports = ({ salesReports }) => {
   return (
     <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Sales Reports</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-4">Sales Reports</h2>
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Date</Table.HeadCell>

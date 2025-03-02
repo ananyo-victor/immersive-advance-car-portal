@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+.margin-top {
+  margin-top: var(--height, 0px);
+}
 
-*{
-    /* border-radius: 10px; */
-    /* border-color: black; */
-    /* border-width: 2px; */
+@media (max-width: 1024px) {
+  .margin-top {
+    margin-top: 0px;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import Card from "./Card";
-import CarDetailsModal from "./CarDetailsModal";
+// import CarDetailsModal from "./CarDetailsModal";
 
 const CarSection = ({ title, cars }) => {
   const cardContainerRef = useRef(null);
@@ -68,9 +68,9 @@ const CarSection = ({ title, cars }) => {
           <HiChevronRight className="w-6 h-6" />
         </button>
       </div>
-      {selectedCar && (
+      {/* {selectedCar && (
         <CarDetailsModal car={selectedCar} onClose={handleCloseModal} />
-      )}
+      )} */}
     </div>
   );
 };

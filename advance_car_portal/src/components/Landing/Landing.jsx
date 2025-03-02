@@ -2,27 +2,13 @@ import React, { useState } from 'react';
 import Slider from "./Slider";
 import CarSection from "./CarSection";
 import Search from "./Search";
-
-const carList = [
-  { id: 1, name: "Toyota Corolla", brand: "Toyota", model: "Corolla", price: 5000, description: "A reliable car" },
-  { id: 2, name: "Honda Civic", brand: "Honda", model: "Civic", price: 7000, description: "A stylish car" },
-  { id: 3, name: "Ford Mustang", brand: "Ford", model: "Mustang", price: 15000, description: "A powerful car" },
-  { id: 4, name: "Chevrolet Camaro", brand: "Chevrolet", model: "Camaro", price: 14000, description: "A sporty car" },
-  { id: 5, name: "BMW 3 Series", brand: "BMW", model: "3 Series", price: 20000, description: "A luxury car" },
-  { id: 6, name: "Audi A4", brand: "Audi", model: "A4", price: 22000, description: "A premium car" },
-  { id: 7, name: "Mercedes-Benz C-Class", brand: "Mercedes-Benz", model: "C-Class", price: 25000, description: "A high-end car" },
-  { id: 8, name: "Tesla Model 3", brand: "Tesla", model: "Model 3", price: 35000, description: "An electric car" },
-  { id: 9, name: "Nissan Altima", brand: "Nissan", model: "Altima", price: 8000, description: "A comfortable car" },
-  { id: 10, name: "Hyundai Elantra", brand: "Hyundai", model: "Elantra", price: 6000, description: "An affordable car" },
-  { id: 11, name: "Kia Optima", brand: "Kia", model: "Optima", price: 7000, description: "A reliable car" },
-  { id: 12, name: "Volkswagen Passat", brand: "Volkswagen", model: "Passat", price: 9000, description: "A German-engineered car" },
-];
+import { carsData } from "../../data/carsData";
 
 function Landing() {
     const [searchResults, setSearchResults] = useState([]);
 
     const handleSearch = (searchTerm, filters) => {
-        const results = carList.filter(car => {
+        const results = carsData.filter(car => {
             return (
                 car.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
                 (filters.brand ? car.brand === filters.brand : true) &&
@@ -34,7 +20,7 @@ function Landing() {
     };
 
     return (
-        <div className="App relative bg-gradient-to-r from-blue-400 to-purple-500">
+        <div className="relative ">
             <Slider />
             <div className="flex flex-col items-center max-h-fit w-full">
                 <Search onSearch={handleSearch} />
@@ -42,8 +28,8 @@ function Landing() {
                     <CarSection title="Search Results" cars={searchResults} />
                 ) : (
                     <>
-                        <CarSection title="Featured Cars" cars={carList} />
-                        <CarSection title="Popular Cars" cars={carList} />
+                        <CarSection title="Featured Cars" cars={carsData} />
+                        <CarSection title="Popular Cars" cars={carsData} />
                     </>
                 )}
             </div>
