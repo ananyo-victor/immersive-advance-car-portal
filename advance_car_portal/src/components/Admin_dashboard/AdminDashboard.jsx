@@ -5,6 +5,7 @@ import BookingManagement from './BookingManagement';
 import ReviewModeration from './ReviewModeration';
 import UserAnalytics from './UserAnalytics';
 import SalesReports from './SalesReports';
+import DealerManagement from './DealerManagement';
 import { Tabs } from 'flowbite-react';
 import {
   feedbacksData,
@@ -14,6 +15,7 @@ import {
   reviewsData,
   analyticsData,
   salesReportsData,
+  dealersData,
 } from '../../data/adminData';
 
 function AdminDashboard() {
@@ -24,6 +26,7 @@ function AdminDashboard() {
   const [reviews, setReviews] = useState(reviewsData);
   const [analytics, setAnalytics] = useState(analyticsData);
   const [salesReports, setSalesReports] = useState(salesReportsData);
+  const [dealers, setDealers] = useState(dealersData);
 
   return (
     <div className="p-4 md:p-8 bg-gray-100 min-h-screen">
@@ -46,6 +49,9 @@ function AdminDashboard() {
         </Tabs.Item>
         <Tabs.Item title="Sales Reports">
           <SalesReports salesReports={salesReports} />
+        </Tabs.Item>
+        <Tabs.Item title="Dealer Management">
+          <DealerManagement dealers={dealers} />
         </Tabs.Item>
       </Tabs>
     </div>
